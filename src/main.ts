@@ -16,7 +16,7 @@ import {
 } from "./types";
 
 import { WizardRepository, SpellRepository } from "./repository";
-import { Log } from "./decorators";
+import { Log, Cache } from "./decorators";
 
 function isHouse(value: unknown): value is House {
   return (
@@ -225,3 +225,19 @@ spells.add({
     category: "attack",
     power: -10
 });
+
+
+// Ex5 : Cache test
+class SpellCalculator {
+    @Cache
+    calculatePower(basePower: number, multiplier: number): number {
+        console.log("Calculating...");
+        return basePower * multiplier;
+    }
+}
+
+const calculator = new SpellCalculator();
+
+console.log(calculator.calculatePower(10, 3));
+console.log(calculator.calculatePower(10, 3));
+console.log(calculator.calculatePower(5, 2));
