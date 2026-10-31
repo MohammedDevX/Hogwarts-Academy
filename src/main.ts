@@ -18,13 +18,27 @@ import {
 import { WizardRepository, SpellRepository } from "./repository";
 import { Log, Cache } from "./decorators";
 
+// function isHouse(value: unknown): value is House {
+//   return (
+//     value === "Gryffindor" ||
+//     value === "Slytherin" ||
+//     value === "Ravenclaw" ||
+//     value === "Hufflepuff"
+//   );
+// }
+
+const validHouses: readonly House[] = [
+    "Gryffindor",
+    "Slytherin",
+    "Ravenclaw",
+    "Hufflepuff"
+];
+
 function isHouse(value: unknown): value is House {
-  return (
-    value === "Gryffindor" ||
-    value === "Slytherin" ||
-    value === "Ravenclaw" ||
-    value === "Hufflepuff"
-  );
+    return (
+        typeof value === "string" &&
+        validHouses.some(house => house === value)
+    );
 }
 
 // Type guard: safely narrow unknown data to a Wizard.
@@ -219,12 +233,16 @@ spells.add({
     power: 50
 });
 
-spells.add({
-    id: 103,
-    name: "Invalid Spell",
-    category: "attack",
-    power: -10
-});
+try { // Catch this exception
+  spells.add({
+      id: 103,
+      name: "Invalid Spell",
+      category: "attack",
+      power: -10
+  });
+} catch(error) {
+  console.log("Spell power cannot be negative")
+}
 
 
 // Ex5 : Cache test
@@ -241,3 +259,26 @@ const calculator = new SpellCalculator();
 console.log(calculator.calculatePower(10, 3));
 console.log(calculator.calculatePower(10, 3));
 console.log(calculator.calculatePower(5, 2));
+
+// Ex6 : 
+
+
+
+const validData: unknown = {
+    id: 1,
+    name: "Harry Potter",
+    house: "Gryffindor",
+    level: 5,
+    active: true
+};
+
+const invalidData: unknown = {
+    id: 2,
+    name: "Viktor",
+    house: "Durmstrang",
+    level: 5,
+    active: true
+};  
+
+console.log(isWizard(validData));
+console.log(isWizard(invalidData));
