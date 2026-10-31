@@ -12,6 +12,7 @@ import {
   type WizardUpdate,
   type AttackSpell,
   type NonHealingCategory,
+  SpellCastEvent,
 } from "./types";
 
 import { WizardRepository, SpellRepository } from "./repository";
@@ -180,6 +181,7 @@ const typeExamples: [
 
 void typeExamples;
 
+// Ex1 : Add Wizard test
 const testWizard: NewWizard = {
   name: "mohammed bakhtaoui",
   house: "Gryffindor",
@@ -188,3 +190,23 @@ const testWizard: NewWizard = {
 };
 const addedWizard = wizards.add(testWizard);
 console.log("Added wizard : ", addedWizard);
+
+// Ex2 : Filter by House 
+const house: House = "Gryffindor";
+const filterWizardsByHous = wizards.findByHous(house);
+console.log(`---- Wizards in ${house} house ----`);
+console.log(filterWizardsByHous);
+
+// Ex3 :
+function handleSpellCast(event: SpellCastEvent): void {
+    console.log(
+        `Wizard ${event.wizardId} cast ${event.spellName}`
+    );
+}
+
+handleSpellCast({
+    type: "spell-cast",
+    wizardId: 1,
+    spellName: "Expelliarmus"
+});
+
