@@ -210,3 +210,18 @@ handleSpellCast({
     spellName: "Expelliarmus"
 });
 
+
+// Ex4 : ValidateSpellPower Decorator tests
+spells.add({
+    id: 102,
+    name: "Protego",
+    category: "defense",
+    power: 50
+});
+
+spells.add({
+    id: 103,
+    name: "Invalid Spell",
+    category: "attack",
+    power: -10
+});
