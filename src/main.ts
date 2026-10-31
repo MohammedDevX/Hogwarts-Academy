@@ -1,5 +1,6 @@
 import {
   type Wizard,
+  type NewWizard,
   type Spell,
   type AcademyEvent,
   type House,
@@ -178,3 +179,12 @@ const typeExamples: [
 ] | null = null;
 
 void typeExamples;
+
+const testWizard: NewWizard = {
+  name: "mohammed bakhtaoui",
+  house: "Gryffindor",
+  level: 5,
+  active: true
+};
+const addedWizard = wizards.add(testWizard);
+console.log("Added wizard : ", addedWizard);

@@ -4,7 +4,7 @@
   "private": true,
   "description": "TypeScript mini-project covering generics, utility types, conditional types, index signatures, type guards, and legacy method decorators.",
   "scripts": {
-    "start": "tsx src/main.ts",
+    "start": "npx tsx src/main.ts",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {

@@ -4,8 +4,7 @@ export type House =
   | "Ravenclaw"
   | "Hufflepuff";
 
-export interface Wizard {
-  id: number;
+export interface WizardBase {
   name: string;
   house: House;
   level: number;
@@ -13,6 +12,10 @@ export interface Wizard {
 
   // Index signature: dynamic properties must use these value types.
   [key: string]: string | number | boolean;
+}
+
+export interface Wizard extends WizardBase {
+  id: number;
 }
 
 export type SpellCategory = "attack" | "defense" | "healing";
@@ -41,7 +44,7 @@ export type ArrayElement<T> =
   T extends (infer Item)[] ? Item : never;
 
 // Utility type examples.
-export type NewWizard = Omit<Wizard, "id">;
+export type NewWizard = WizardBase;
 export type WizardSummary = Pick<Wizard, "id" | "name" | "house">;
 export type WizardUpdate = Partial<Wizard>;
 

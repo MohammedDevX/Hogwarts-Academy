@@ -1,4 +1,4 @@
-import type { Wizard, Spell } from "./types";
+import type { Wizard, Spell, NewWizard } from "./types";
 import { Log, MeasureTime } from "./decorators";
 
 export class Repository<T extends { id: number }> {
@@ -28,5 +28,19 @@ export class Repository<T extends { id: number }> {
   }
 }
 
-export class WizardRepository extends Repository<Wizard> {}
+export class WizardRepository extends Repository<Wizard> {
+  override add(item: NewWizard & { id?: number }): Wizard {
+    const items = this.getAll();
+    const nextId: number =
+      item.id ?? (items.length > 0 ? Math.max(...items.map((i) => i.id)) + 1 : 1);
+
+    const newWizard: Wizard = {
+      ...item,
+      id: nextId,
+    };
+
+    super.add(newWizard);
+    return newWizard;
+  }
+}
 export class SpellRepository extends Repository<Spell> {}
